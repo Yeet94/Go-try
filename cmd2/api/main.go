@@ -10,11 +10,12 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/Yeet94/Go_try/internal/handlers"
+	
 	"github.com/go-chi/chi"
+	"github.com/Yeet94/Go-try/internal/handlers"
 	log "github.com/sirupsen/logrus"
 )
-
+ 
 func main() {
 	log.SetReportCaller(true)        // Enables detailed logging with file and line numbers
 	var r *chi.Mux = chi.NewRouter() // Creates a new router using the Chi package

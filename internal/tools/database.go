@@ -14,7 +14,7 @@ type CoinDetails struct {
 	Username string
 }
 
-type Database struct {
+type DatabaseInterface interface {
 	GetUserLoginDetails(username string) *LoginDetails
 	GetUserCoin(username string) *CoinDetails
 	SetupDatabase() error
@@ -28,5 +28,6 @@ func NewDatabase() (*DatabaseInterface, error){
 		log.Error(err)
 		return nil, err
 	}
+
 	return &database, nil
 }

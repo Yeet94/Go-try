@@ -6,8 +6,6 @@ import (
 
 	"github.com/Yeet94/Go-try/api"
 	"github.com/Yeet94/Go-try/internal/tools"
-	"github.com/Yeet94/Go_try/api"
-	"github.com/Yeet94/Go_try/internal/tools"
 	"github.com/gorilla/schema"
 	log "github.com/sirupsen/logrus"
 )
@@ -35,7 +33,7 @@ func GetCoinBalance(w http.ResponseWriter, r *http.Request){
 	var tokenDetails *tools.CoinDetails
 	tokenDetails = (*database).GetUserCoin(params.Username)
 	if tokenDetails == nil {
-		api.InternalErrorHandler
+		api.InternalErrorHandler(w)
 		return
 	}
 

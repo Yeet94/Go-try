@@ -1,14 +1,12 @@
 package tools
 
-type LoginDetails struct {
-	AuthToken string
-	Username  string
-}
+import (
+	"strings"
+	"time"
+	"log"
+)
 
-type CoinDetails struct {
-	Coins    float64
-	Username string
-}
+type mockDB struct{}
 
 var mockLoginDetails = map[string]LoginDetails{
 	"John": {AuthToken: "token123", Username: "john_doe"},
@@ -17,24 +15,27 @@ var mockLoginDetails = map[string]LoginDetails{
 }
 
 var mockCoinDetails = map[string]CoinDetails{
-	"BTC": {Coins: 1.5, Username: "john_doe"},
+	"BTC": {Coins: 15.0, Username: "john_doe"},
 	"ETH": {Coins: 10.0, Username: "jane_doe"},
 	"ADA": {Coins: 100.0, Username: "mike_smith"},
 }
 
 func (d *mockDB) GetUserLoginDetails(username string) *LoginDetails {
-	time.Sleep(time.Second *1)
+	time.Sleep(time.Second * 1)
 
-	var clientData = LoginDetails{}
-	clientData, ok := mockLoginDetails[username]
-	if !ok {
-		return nil
+	log.Printf("Searching for username: %s", username) // Log the username being searched
+	for key, clientData := range mockLoginDetails {
+		if strings.EqualFold(key, username) { // Perform case-insensitive comparison
+			return &clientData
+		}
 	}
-	return &clientData
+
+	log.Printf("Username not found: %s", username) // Log if username is not found
+	return nil
 }
 
 func (d *mockDB) GetUserCoin(username string) *CoinDetails {
-	time.Sleep(time.Second *1)
+	time.Sleep(time.Second * 1)
 
 	var clientData = CoinDetails{}
 	clientData, ok := mockCoinDetails[username]
